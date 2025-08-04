@@ -6,35 +6,31 @@ import "../assets/js/faq.js"; // jika ini memuat fungsi toggleFaqCustom()
 
 const faqData = [
   {
-    question: "What is penetration testing and why do I need it?",
-    answer:
-      "Penetration testing is a simulated cyber attack against your computer system to check for exploitable vulnerabilities. It helps identify security weaknesses before malicious hackers do, protecting your business data and reputation.",
+    question: "Bagaimana jika ingin menggunakan jasa pentest X-code ?",
+    answer: "Hubungi kami di WA 0858 0394 6032.",
   },
   {
-    question: "How long does a penetration test take?",
+    question: "Apakah jasa pentest dibayar sebelum pentest ?",
     answer:
-      "The duration depends on the scope and complexity of your systems. Typically, a standard web application test takes 3-5 days, while comprehensive network testing can take 1-2 weeks. We'll provide a detailed timeline during consultation.",
+      "Jasa pentest bisa dibayar full sebelum pentest atau uang muka 50% sebelum pentest.",
   },
   {
-    question: "What types of penetration testing do you offer?",
-    answer:
-      "We offer various types including web application testing, network penetration testing, mobile app testing, wireless security testing, and social engineering assessments. Each test is customized to your specific infrastructure and needs.",
+    question: "Apakah X-code menerima jasa server security hardening?",
+    answer: "Iya menerima.",
   },
   {
-    question: "Will the testing disrupt our business operations?",
-    answer:
-      "We design our tests to minimize disruption to your operations. Most testing is performed during off-hours or maintenance windows. We coordinate closely with your team to ensure business continuity throughout the process.",
+    question: "Apakah X-code melayani jasa SOC ?",
+    answer: "Iya, X-code melayani jasa SOC untuk minimal kontrak 1 tahun.",
   },
   {
-    question: "What do we receive after the penetration test?",
-    answer:
-      "You'll receive a comprehensive report detailing all findings, risk ratings, proof of concept for vulnerabilities, and prioritized remediation recommendations. We also provide an executive summary for management and technical details for your IT team.",
+    question: "Bagaimana langkah untuk menggunakan jasa X-code ?",
+    answer: "Anda bisa menghubungi kami lewat whatsapp atau e-mail.",
   },
-  {
-    question: "How often should we conduct penetration testing?",
-    answer:
-      "We recommend annual penetration testing as a baseline, with additional testing after major system changes, new deployments, or security incidents. High-risk organizations may benefit from quarterly assessments.",
-  },
+  // {
+  //   question: "How often should we conduct penetration testing?",
+  //   answer:
+  //     "We recommend annual penetration testing as a baseline, with additional testing after major system changes, new deployments, or security incidents. High-risk organizations may benefit from quarterly assessments.",
+  // },
 ];
 
 const Faq = () => {
@@ -80,7 +76,9 @@ const Faq = () => {
                     >
                       <div
                         className="faq-question-custom"
-                        onClick={(e) => window.toggleFaqCustom?.(e.currentTarget)}
+                        onClick={(e) =>
+                          window.toggleFaqCustom?.(e.currentTarget)
+                        }
                       >
                         <h5>{faq.question}</h5>
                         <div className="faq-icon-custom">
@@ -105,7 +103,9 @@ const Faq = () => {
                     >
                       <div
                         className="faq-question-custom"
-                        onClick={(e) => window.toggleFaqCustom?.(e.currentTarget)}
+                        onClick={(e) =>
+                          window.toggleFaqCustom?.(e.currentTarget)
+                        }
                       >
                         <h5>{faq.question}</h5>
                         <div className="faq-icon-custom">
