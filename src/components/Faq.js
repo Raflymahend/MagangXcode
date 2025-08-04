@@ -1,6 +1,8 @@
 import React from "react";
-import { Container, Row, Col, Accordion } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import headingLine from "../assets/images/heading-line-dec.png";
+import "../assets/css/style.css"; // pastikan style untuk .faq-item-custom dll ada
+import "../assets/js/faq.js"; // jika ini memuat fungsi toggleFaqCustom()
 
 const faqData = [
   {
@@ -36,11 +38,14 @@ const faqData = [
 ];
 
 const Faq = () => {
+  const firstColumn = faqData.slice(0, 3);
+  const secondColumn = faqData.slice(3);
+
   return (
     <div id="faq" className="services section py-5">
       <Container>
         {/* Heading */}
-        <Row className="mb-4">
+        <Row>
           <Col lg={8} className="offset-lg-2 text-center">
             <div
               className="section-heading wow fadeInDown"
@@ -59,17 +64,62 @@ const Faq = () => {
           </Col>
         </Row>
 
-        {/* FAQ Accordion */}
+        {/* FAQ Content */}
         <Row>
           <Col lg={12}>
-            <Accordion defaultActiveKey="0" alwaysOpen>
-              {faqData.map((faq, index) => (
-                <Accordion.Item eventKey={index.toString()} key={index}>
-                  <Accordion.Header>{faq.question}</Accordion.Header>
-                  <Accordion.Body>{faq.answer}</Accordion.Body>
-                </Accordion.Item>
-              ))}
-            </Accordion>
+            <div className="faq-container-custom">
+              <Row>
+                {/* Kolom kiri */}
+                <Col lg={6}>
+                  {firstColumn.map((faq, index) => (
+                    <div
+                      key={index}
+                      className="faq-item-custom wow fadeInUp"
+                      data-wow-duration="1s"
+                      data-wow-delay={`0.${index + 1}s`}
+                    >
+                      <div
+                        className="faq-question-custom"
+                        onClick={(e) => window.toggleFaqCustom?.(e.currentTarget)}
+                      >
+                        <h5>{faq.question}</h5>
+                        <div className="faq-icon-custom">
+                          <i className="fa fa-plus"></i>
+                        </div>
+                      </div>
+                      <div className="faq-answer-custom">
+                        <p>{faq.answer}</p>
+                      </div>
+                    </div>
+                  ))}
+                </Col>
+
+                {/* Kolom kanan */}
+                <Col lg={6}>
+                  {secondColumn.map((faq, index) => (
+                    <div
+                      key={index + 3}
+                      className="faq-item-custom wow fadeInUp"
+                      data-wow-duration="1s"
+                      data-wow-delay={`0.${index + 4}s`}
+                    >
+                      <div
+                        className="faq-question-custom"
+                        onClick={(e) => window.toggleFaqCustom?.(e.currentTarget)}
+                      >
+                        <h5>{faq.question}</h5>
+                        <div className="faq-icon-custom">
+                          <i className="fa fa-plus"></i>
+                        </div>
+                      </div>
+                      <div className="faq-answer-custom">
+                        <p>{faq.answer}</p>
+                      </div>
+                    </div>
+                  ))}
+                </Col>
+              </Row>
+            </div>
           </Col>
         </Row>
       </Container>

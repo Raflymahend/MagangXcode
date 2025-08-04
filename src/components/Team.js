@@ -4,6 +4,7 @@ import kurniawan from "../assets/images/kurniawan.png";
 import dyan from "../assets/images/dyan.png";
 import sani from "../assets/images/sani.jpg";
 import gizka from "../assets/images/gizka.png";
+import "../assets/css/style.css";
 
 const teamMembers = [
   {
