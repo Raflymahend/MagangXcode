@@ -1,12 +1,11 @@
 (function ($) {
-	
-	"use strict";
+  "use strict";
 
-	// Header Type = Fixed
-  $(window).scroll(function() {
+  // ✅ Header Scroll Effect
+  $(window).on("scroll", function () {
     var scroll = $(window).scrollTop();
-    var box = $('.header-text').height();
-    var header = $('header').height();
+    var box = $(".header-text").height() || 0;
+    var header = $("header").height() || 0;
 
     if (scroll >= box - header) {
       $("header").addClass("background-header");
@@ -15,187 +14,146 @@
     }
   });
 
-
-	$('.loop').owlCarousel({
+  // ✅ Owl Carousel Init (check if exists)
+  if ($(".loop").length) {
+    $(".loop").owlCarousel({
       center: true,
-      items:1,
-      loop:true,
+      items: 1,
+      loop: true,
       autoplay: true,
       nav: true,
-      margin:0,
-      responsive:{ 
-          1200:{
-              items:5
-          },
-          992:{
-              items:3
-          },
-          760:{
-            items:2
-        }
-      }
-  });
-  
-  $("#modal_trigger").leanModal({
-		top: 100,
-		overlay: 0.6,
-		closeButton: ".modal_close"
-});
-
-$(function() {
-		// Calling Login Form
-		$("#login_form").click(function() {
-				$(".social_login").hide();
-				$(".user_login").show();
-				return false;
-		});
-
-		// Calling Register Form
-		$("#register_form").click(function() {
-				$(".social_login").hide();
-				$(".user_register").show();
-				$(".header_title").text('Register');
-				return false;
-		});
-
-		// Going back to Social Forms
-		$(".back_btn").click(function() {
-				$(".user_login").hide();
-				$(".user_register").hide();
-				$(".social_login").show();
-				$(".header_title").text('Login');
-				return false;
-		});
-});
-
-  // Acc
-  $(document).on("click", ".naccs .menu div", function() {
-    var numberIndex = $(this).index();
-
-    if (!$(this).is("active")) {
-        $(".naccs .menu div").removeClass("active");
-        $(".naccs ul li").removeClass("active");
-
-        $(this).addClass("active");
-        $(".naccs ul").find("li:eq(" + numberIndex + ")").addClass("active");
-
-        var listItemHeight = $(".naccs ul")
-          .find("li:eq(" + numberIndex + ")")
-          .innerHeight();
-        $(".naccs ul").height(listItemHeight + "px");
-      }
-  });
-	
-
-	// Menu Dropdown Toggle
-  if($('.menu-trigger').length){
-    $(".menu-trigger").on('click', function() { 
-      $(this).toggleClass('active');
-      $('.header-area .nav').slideToggle(200);
+      margin: 0,
+      responsive: {
+        1200: {
+          items: 5,
+        },
+        992: {
+          items: 3,
+        },
+        760: {
+          items: 2,
+        },
+      },
     });
   }
 
+  // ✅ Modal Trigger (leanModal plugin)
+  if ($("#modal_trigger").length && $.fn.leanModal) {
+    $("#modal_trigger").leanModal({
+      top: 100,
+      overlay: 0.6,
+      closeButton: ".modal_close",
+    });
+  }
 
-  // Menu elevator animation
-  $('.scroll-to-section a[href*=\\#]:not([href=\\#])').on('click', function() {
-    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-      if (target.length) {
-        var width = $(window).width();
-        if(width < 991) {
-          $('.menu-trigger').removeClass('active');
-          $('.header-area .nav').slideUp(200);  
-        }       
-        $('html,body').animate({
-          scrollTop: (target.offset().top) + 1
-        }, 700);
-        return false;
-      }
+  // ✅ Login/Register Form Toggle
+  $(function () {
+    $("#login_form").on("click", function () {
+      $(".social_login").hide();
+      $(".user_login").show();
+      return false;
+    });
+
+    $("#register_form").on("click", function () {
+      $(".social_login").hide();
+      $(".user_register").show();
+      $(".header_title").text("Register");
+      return false;
+    });
+
+    $(".back_btn").on("click", function () {
+      $(".user_login").hide();
+      $(".user_register").hide();
+      $(".social_login").show();
+      $(".header_title").text("Login");
+      return false;
+    });
+  });
+
+  // ✅ FAQ Accordion (Naccs)
+  $(document).on("click", ".naccs .menu div", function () {
+    var numberIndex = $(this).index();
+
+    if (!$(this).hasClass("active")) {
+      $(".naccs .menu div").removeClass("active");
+      $(".naccs ul li").removeClass("active");
+
+      $(this).addClass("active");
+      $(".naccs ul").find("li:eq(" + numberIndex + ")").addClass("active");
+
+      var listItemHeight = $(".naccs ul")
+        .find("li:eq(" + numberIndex + ")")
+        .innerHeight();
+      $(".naccs ul").height(listItemHeight + "px");
     }
   });
 
-  $(document).ready(function () {
-      $(document).on("scroll", onScroll);
-      
-      //smoothscroll
-      $('.scroll-to-section a[href^="#"]').on('click', function (e) {
-          e.preventDefault();
-          $(document).off("scroll");
-          
-          $('.scroll-to-section a').each(function () {
-              $(this).removeClass('active');
-          })
-          $(this).addClass('active');
-        
-          var target = this.hash,
-          menu = target;
-          var target = $(this.hash);
-          $('html, body').stop().animate({
-              scrollTop: (target.offset().top) + 1
-          }, 500, 'swing', function () {
-              window.location.hash = target;
-              $(document).on("scroll", onScroll);
-          });
-      });
-  });
-
-  function onScroll(event){
-      var scrollPos = $(document).scrollTop();
-      $('.nav a').each(function () {
-          var currLink = $(this);
-          var refElement = $(currLink.attr("href"));
-          if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
-              $('.nav ul li a').removeClass("active");
-              currLink.addClass("active");
-          }
-          else{
-              currLink.removeClass("active");
-          }
-      });
+  // ✅ Mobile Nav Toggle
+  if ($(".menu-trigger").length) {
+    $(".menu-trigger").on("click", function () {
+      $(this).toggleClass("active");
+      $(".header-area .nav").slideToggle(200);
+    });
   }
 
+  // ✅ Scroll-to-section with smooth scroll
+  $(".scroll-to-section a[href^='#']").on("click", function (e) {
+    const hash = this.hash;
+    if (hash && $(hash).length) {
+      e.preventDefault();
+      const target = $(hash).offset().top;
 
-  // Acc
-  $(document).on("click", ".naccs .menu div", function() {
-    var numberIndex = $(this).index();
-
-    if (!$(this).is("active")) {
-        $(".naccs .menu div").removeClass("active");
-        $(".naccs ul li").removeClass("active");
-
-        $(this).addClass("active");
-        $(".naccs ul").find("li:eq(" + numberIndex + ")").addClass("active");
-
-        var listItemHeight = $(".naccs ul")
-          .find("li:eq(" + numberIndex + ")")
-          .innerHeight();
-        $(".naccs ul").height(listItemHeight + "px");
+      const width = $(window).width();
+      if (width < 991) {
+        $(".menu-trigger").removeClass("active");
+        $(".header-area .nav").slideUp(200);
       }
+
+      $("html, body").animate(
+        {
+          scrollTop: target + 1,
+        },
+        700
+      );
+    }
   });
 
-
-	// Page loading animation
-	 $(window).on('load', function() {
-
-        $('#js-preloader').addClass('loaded');
-
+  // ✅ On scroll active nav
+  function onScroll() {
+    var scrollPos = $(document).scrollTop();
+    $(".nav a[href^='#']").each(function () {
+      var currLink = $(this);
+      var refElement = $(currLink.attr("href"));
+      if (
+        refElement.length &&
+        refElement.position().top <= scrollPos &&
+        refElement.position().top + refElement.height() > scrollPos
+      ) {
+        $(".nav ul li a").removeClass("active");
+        currLink.addClass("active");
+      } else {
+        currLink.removeClass("active");
+      }
     });
+  }
 
-	
+  $(document).on("scroll", onScroll);
 
-	// Window Resize Mobile Menu Fix
+  // ✅ Preloader
+  $(window).on("load", function () {
+    $("#js-preloader").addClass("loaded");
+  });
+
+  // ✅ Mobile submenu toggle
   function mobileNav() {
     var width = $(window).width();
-    $('.submenu').on('click', function() {
-      if(width < 767) {
-        $('.submenu ul').removeClass('active');
-        $(this).find('ul').toggleClass('active');
+    $(".submenu").on("click", function () {
+      if (width < 767) {
+        $(".submenu ul").removeClass("active");
+        $(this).find("ul").toggleClass("active");
       }
     });
   }
-
-
-
+  mobileNav(); // jalankan saat load
 
 })(window.jQuery);
